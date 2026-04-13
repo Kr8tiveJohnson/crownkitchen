@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crown Kitchen | Royal Flavor, Fast!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-orange: #FF6600;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .brand-font { font-family: 'Fredoka', sans-serif; }
+        
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .marquee-container {
+            background: linear-gradient(90deg, var(--brand-orange), #ff9900);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .btn-primary {
+            background: var(--brand-orange);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(255, 102, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body class="selection:bg-orange-500 selection:text-white">
+
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] glass-card px-4 md:px-6 py-4 flex justify-between items-center shadow-2xl">
+        <div class="flex items-center space-x-2 cursor-pointer group" onclick="showPage('home')">
+            <span class="text-2xl md:text-3xl group-hover:rotate-12 transition-transform">👑</span>
+            <span class="text-lg md:text-xl font-extrabold tracking-tight brand-font text-white uppercase">CROWN<span class="text-orange-500">KITCHEN</span></span>
+        </div>
+        
+        <div class="hidden lg:flex space-x-8 font-medium items-center text-sm uppercase tracking-widest">
+            <button onclick="showPage('home')" class="hover:text-orange-500 transition">Home</button>
+            <button onclick="showPage('about')" class="hover:text-orange-500 transition">About</button>
+            <button onclick="showPage('menu')" class="hover:text-orange-500 transition">Menu</button>
+            <button onclick="showPage('contact')" class="hover:text-orange-500 transition">Contact</button>
+            <button onclick="showPage('vendor-dashboard')" class="hidden text-purple-400 hover:text-purple-300 transition" id="vendor-nav-link">Dashboard</button>
+        </div>
+
+        <div class="flex items-center gap-3 md:gap-4">
+            <button onclick="showPage('auth')" class="hidden md:block hover:text-orange-500 transition font-bold text-xs uppercase tracking-widest">LOGIN</button>
+            <button onclick="showPage('cart')" class="bg-white text-black px-4 md:px-5 py-2 rounded-full flex items-center gap-2 font-bold hover:bg-orange-500 hover:text-white transition">
+                🛒 <span id="cart-count">0</span>
+            </button>
+            <button class="lg:hidden text-2xl" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-[150] hidden flex-col items-center justify-center space-y-8 text-2xl font-bold">
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-4xl">&times;</button>
+        <button onclick="showPage('home'); toggleMobileMenu();" class="hover:text-orange-500 uppercase">Home</button>
+        <button onclick="showPage('about'); toggleMobileMenu();" class="hover:text-orange-500 uppercase">About</button>
+        <button onclick="showPage('menu'); toggleMobileMenu();" class="hover:text-orange-500 uppercase">Menu</button>
+        <button onclick="showPage('contact'); toggleMobileMenu();" class="hover:text-orange-500 uppercase">Contact</button>
+        <button onclick="showPage('auth'); toggleMobileMenu();" class="text-orange-500 uppercase">Login</button>
+    </div>
+
+    <main class="pt-28">
+
+        <section id="home" class="page active">
+            <div class="marquee-container py-3 mb-12">
+                <div class="marquee-content font-bold uppercase tracking-tighter text-xs md:text-base">
+                    🔥 50% OFF FOR NEW CUSTOMERS! • TRY THE MAJESTY TATA ROLL TODAY! • FREE DELIVERY ON ORDERS OVER ₦15,000! • 🔥 50% OFF FOR NEW CUSTOMERS! •
+                </div>
+            </div>
+            <div class="container mx-auto px-6 py-12 lg:py-24 text-center lg:text-left">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2 space-y-8">
+                        <h1 class="text-6xl lg:text-8xl font-black leading-[0.9] tracking-tighter">Cravings Fit <br>For <span class="text-orange-500 italic">A King.</span></h1>
+                        <p class="text-xl text-gray-400 max-w-lg mx-auto lg:mx-0 font-light leading-relaxed">Handcrafted snacks, giant burgers, and desserts so good they'll rule your tastebuds.</p>
+                        <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                            <button onclick="showPage('menu')" class="btn-primary text-white text-lg px-10 py-5 rounded-2xl font-black uppercase tracking-widest">Explore Menu</button>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 relative">
+                        <img src="images/crown.png" alt="Hero" class="relative w-full max-w-md mx-auto rounded-[3rem] shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="page">
+            <div class="container mx-auto px-6 py-20 max-w-6xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl lg:text-7xl font-black mb-8 italic tracking-tighter">The Finest Kitchen <br>In Town</h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">Crown Kitchen was born from a passion for excellence. We believe that eating should be the best part of your day.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="glass-card p-8">
+                        <h3 class="text-2xl font-bold text-orange-500 mb-4">Our Secret?</h3>
+                        <p class="text-gray-400 text-sm leading-loose">Signature spice blends passed down through generations. We source locally for executive quality.</p>
+                    </div>
+                    <div class="glass-card p-8 bg-orange-500/10 border-orange-500/20">
+                        <h3 class="text-2xl font-bold text-orange-500 mb-4">Our Vision</h3>
+                        <p class="text-gray-400 text-sm leading-loose">By 2027, we plan to allow various Food Vendors to sell their snacks through our royal platform.</p>
+                    </div>
+                    <div class="glass-card p-8">
+                        <h3 class="text-2xl font-bold text-orange-500 mb-4">Community</h3>
+                        <p class="text-gray-400 text-sm leading-loose">We host monthly free lunch events for local schools to build a stronger community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="page">
+            <div class="container mx-auto px-6 py-12">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <h2 class="text-5xl font-black tracking-tighter">Choose Your <span class="text-orange-500">Treats</span></h2>
+                    <div class="flex gap-4">
+                        <button class="px-6 py-2 rounded-full glass-card text-xs font-bold hover:bg-orange-500 transition">ALL</button>
+                        <button class="px-6 py-2 rounded-full glass-card text-xs font-bold hover:bg-orange-500 transition">SNACKS</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="menu-grid"></div>
+            </div>
+        </section>
+
+        <section id="auth" class="page">
+            <div class="flex items-center justify-center py-10 px-4 min-h-[80vh]">
+                <div class="glass-card p-8 md:p-12 w-full max-w-2xl shadow-2xl">
+                    <div id="login-form" class="auth-container active">
+                        <h2 class="text-4xl font-black mb-8 text-center tracking-tighter uppercase italic text-orange-500">Sign In</h2>
+                        <div class="space-y-4">
+                            <input type="email" id="login-email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-orange-500">
+                            <input type="password" id="login-pass" placeholder="Password" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-orange-500">
+                            <button onclick="processLogin()" class="w-full btn-primary text-white py-5 rounded-2xl font-black text-lg uppercase tracking-widest">Access Portal</button>
+                        </div>
+                        <p class="text-center text-sm mt-8 text-gray-500">New? <button onclick="toggleAuth()" class="text-orange-500 font-bold hover:underline">Register Now</button></p>
+                    </div>
+
+                    <div id="signup-form" class="auth-container hidden">
+                        <h2 class="text-4xl font-black mb-6 text-center text-orange-500 italic">Registration</h2>
+                        <div class="flex p-1 bg-white/5 rounded-2xl border border-white/10 mb-8">
+                            <button id="btn-customer" onclick="setRole('customer')" class="flex-1 py-3 rounded-xl font-bold bg-orange-500 text-white text-xs uppercase">Customer</button>
+                            <button id="btn-vendor" onclick="setRole('vendor')" class="flex-1 py-3 rounded-xl font-bold text-gray-400 text-xs uppercase">Vendor</button>
+                        </div>
+                        <div class="flex flex-col items-center mb-6">
+                            <label for="profile-upload" class="cursor-pointer">
+                                <div class="w-20 h-20 rounded-full border-2 border-dashed border-orange-500/50 flex items-center justify-center overflow-hidden bg-white/5">
+                                    <img id="profile-preview" src="" class="hidden w-full h-full object-cover">
+                                    <span id="upload-icon" class="text-xl">📷</span>
+                                </div>
+                            </label>
+                            <input type="file" id="profile-upload" class="hidden" accept="image/*" onchange="previewImage(this)">
+                        </div>
+                        <form id="reg-form" class="space-y-4 max-h-[40vh] overflow-y-auto px-2">
+                            <div id="customer-only-fields" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="c-name" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                                <input type="email" id="c-email" placeholder="Email Address" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                                <input type="password" id="c-pass" placeholder="Password" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl col-span-full">
+                                <input type="text" id="c-address" placeholder="Delivery Address" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl col-span-full">
+                            </div>
+                            <div id="vendor-only-fields" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="v-fullname" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                                <input type="text" id="v-bizname" placeholder="Business Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                                <input type="email" id="v-email" placeholder="Email" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                                <input type="text" id="v-cuisine" placeholder="Cuisine Type" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                                <input type="text" id="v-bank" placeholder="Bank Details" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl col-span-full">
+                            </div>
+                            <button type="button" onclick="processRegistration()" class="w-full btn-primary text-white py-5 rounded-2xl font-black uppercase tracking-widest mt-4">Create Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vendor-dashboard" class="page">
+            <div class="container mx-auto px-6 py-12">
+                <div class="flex items-center gap-6 mb-12 glass-card p-6 border-purple-500/30">
+                    <img id="dashboard-pfp" src="images/crown.png" class="w-20 h-20 rounded-full border-4 border-purple-500 object-cover" onclick="toggleVendorProfile()">
+                    <div>
+                        <h2 id="display-kitchen-name" class="text-3xl font-black text-purple-400">Your Kitchen</h2>
+                        <p class="text-gray-400">Management Dashboard</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8">
+                    <h3 class="text-xl font-bold mb-6">List a New Dish</h3>
+                    <form id="vendor-form-new" class="grid md:grid-cols-2 gap-6">
+                        <input type="text" id="v-new-name" placeholder="Dish Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                        <input type="number" id="v-new-price" placeholder="Price (₦)" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl">
+                        <input type="text" id="v-new-img" placeholder="Image URL" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl col-span-full">
+                        <button type="submit" class="w-full bg-purple-600 py-4 rounded-xl font-black text-white col-span-full uppercase">Post to Menu</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page">
+            <div class="container mx-auto px-6 py-12">
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div class="space-y-8">
+                        <h2 class="text-5xl font-black uppercase tracking-tighter">Contact <span class="text-orange-500">Us</span></h2>
+                        <div class="glass-card p-6">
+                            <p class="font-bold text-orange-500">📍 Headquarters</p>
+                            <p class="text-gray-400 text-sm mt-2">LASUED, OTO/IJANIKIN, Lagos Nigeria</p>
+                        </div>
+                        <div class="glass-card p-6">
+                            <p class="font-bold text-orange-500">📞 Phone</p>
+                            <p class="text-white font-black">+234 904 480 6087</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8">
+                        <form class="space-y-4">
+                            <input type="text" placeholder="Your Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl">
+                            <textarea placeholder="Your Message" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl h-32"></textarea>
+                            <button type="button" class="w-full btn-primary text-white py-4 rounded-2xl font-black uppercase">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cart" class="page">
+            <div class="container mx-auto px-6 py-12 max-w-3xl">
+                <h2 class="text-5xl font-black mb-12 tracking-tighter uppercase">Your <span class="text-orange-500">Cart</span> 🛒</h2>
+                <div id="cart-list" class="space-y-4 mb-12">
+                    <div class="glass-card p-12 text-center text-gray-500 italic">Your royal cart is empty!</div>
+                </div>
+                <div class="glass-card p-8 flex justify-between items-center">
+                    <h3 class="text-2xl font-black">Total: <span class="text-orange-500">₦<span id="cart-total">0</span></span></h3>
+                    <button class="btn-primary px-8 py-4 rounded-xl font-black uppercase" onclick="alert('Order Preparing!')">Checkout</button>
+                </div>
+            </div>
+        </section>
+        <section id="checkout" class="page">
+            <div class="container mx-auto px-6 py-12 max-w-2xl">
+                <h2 class="text-5xl font-black mb-8 text-center tracking-tighter uppercase">Delivery <span class="text-orange-500">Details</span></h2>
+                <div class="glass-card p-8 md:p-12">
+                    <form id="checkout-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="ship-name" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-orange-500" required>
+                            <input type="tel" id="ship-phone" placeholder="Phone Number" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-orange-500" required>
+                        </div>
+                        <input type="text" id="ship-address" placeholder="Complete Delivery Address" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-orange-500" required>
+                        <input type="text" id="ship-landmark" placeholder="Closest Landmark" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-orange-500">
+                        
+                        <div class="pt-6">
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4 block">Payment Method</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="flex items-center gap-3 p-4 glass-card border-white/10 cursor-pointer hover:border-orange-500/50 transition">
+                                    <input type="radio" name="payment" value="cod" checked class="accent-orange-500">
+                                    <span class="text-sm font-bold">Cash on Delivery</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 glass-card border-white/10 cursor-pointer hover:border-orange-500/50 transition">
+                                    <input type="radio" name="payment" value="card" class="accent-orange-500">
+                                    <span class="text-sm font-bold">Pay with Card</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="completeOrder()" class="w-full bg-green-600 hover:bg-green-500 text-white py-6 rounded-2xl font-black text-xl mt-8 shadow-2xl transition uppercase tracking-widest">Confirm & Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-20 py-12 text-center glass-card rounded-none">
+        <p class="text-gray-500 text-xs tracking-widest uppercase">&copy; 2026 Crown Kitchen.</p>
+    </footer>
+
+    <script>
+        // ... (existing script variables) ...
+
+        function completeOrder() {
+            // Validate basic fields
+            const name = document.getElementById('ship-name').value;
+            const address = document.getElementById('ship-address').value;
+            const phone = document.getElementById('ship-phone').value;
+
+            if(!name || !address || !phone) {
+                alert("⚠️ Royal Command: Please fill in your delivery details!");
+                return;
+            }
+
+            // Success Feedback
+            alert(`Order Successful! 👑\n\nThank you ${name}, your royal meal is being prepared and will be delivered to ${address} shortly.`);
+
+            // Reset Cart
+            cartItems = [];
+            total = 0;
+            updateUI();
+
+            // Clear Form
+            document.getElementById('checkout-form').reset();
+
+            // Return to Home
+            showPage('home');
+        }
+
+        let currentUser = null;
+        let currentUserRole = 'customer';
+        let profileImageBase64 = '';
+        let cartItems = [];
+        let total = 0;
+
+        const items = [
+            { name: "Royal Soda", price: 2500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771220637/soda_ptaobj.jpg" },
+            { name: "Spaghetti Royale", price: 4500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771220637/hero_4_lfs1k5.jpg" },
+            { name: "Tata Roll", price: 2500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771220636/hero_1_ifghac.jpg" },
+            { name: "Majesty Burger", price: 9500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771220636/burger_jwqnik.jpg" },
+            { name: "Sovereign Chicken", price: 4800, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771221528/Popcorn_Chicken_yy0ltd.jpg" },
+            { name: "Imperial Tacos", price: 5500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771221528/Tightrope_Tacos_a2rkjl.jpg" },
+            { name: "Palace Garden Salad", price: 4200, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771221528/Acrobat_Salad_cjet4f.jpg" },
+            { name: "Velvet Shake", price: 3500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771221527/Cotton_Candy_Shake_fupz5m.jpg" },
+            { name: "Crown Pastry", price: 3000, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314273/Crown_Pastry_qlmglj.jpg" },
+            { name: "Regal Ribs", price: 12500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314273/Regal_Ribs_s1gsim.jpg" },
+            { name: "Gourmet Hotdog", price: 3800, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314273/Gourmet_Hotdog_mc9pnt.jpg" },
+            { name: "Golden Onion Rings", price: 2800, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314625/Golden_Onion_Rings_keer5d.jpg" },
+            { name: "Royal Churros", price: 3200, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314273/Royal_Churros_nrdlm5.jpg" },
+            { name: "Crown Cone Ice Cream", price: 2000, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314273/Crown_Cone_Ice_Cream_xg4iyd.jpg" },
+            { name: "Heirloom Steak", price: 15000, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314272/Heirloom_Steak_irkxwk.jpg" },
+            { name: "Grand Burrito", price: 6800, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314272/Grand_Burrito_rzskgz.jpg" },
+            { name: "Premium Corn Dog", price: 2200, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314272/Premium_Corn_Dog_qvlaem.jpg" },
+            { name: "Elite Nachos", price: 5000, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314272/Elite_Nachos_udjoxp.jpg" },
+            { name: "Sovereign Meatballs", price: 7200, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314273/Sovereign_Meatballs_abidsd.jpg" },
+            { name: "Royal Donut Box", price: 8500, src: "https://res.cloudinary.com/dus5lztio/image/upload/v1771314271/Royal_Donut_Box_ivl9mv.jpg" }
+        ];
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if(target) target.classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+            document.getElementById('mobile-menu').classList.toggle('flex');
+        }
+
+        function toggleAuth() {
+            document.getElementById('login-form').classList.toggle('hidden');
+            document.getElementById('signup-form').classList.toggle('hidden');
+        }
+
+        function setRole(role) {
+            currentUserRole = role;
+            const bCust = document.getElementById('btn-customer');
+            const bVend = document.getElementById('btn-vendor');
+            if(role === 'vendor') {
+                bVend.className = "flex-1 py-3 rounded-xl font-bold bg-purple-600 text-white text-xs uppercase";
+                bCust.className = "flex-1 py-3 rounded-xl font-bold text-gray-400 text-xs uppercase";
+                document.getElementById('vendor-only-fields').classList.remove('hidden');
+                document.getElementById('customer-only-fields').classList.add('hidden');
+            } else {
+                bCust.className = "flex-1 py-3 rounded-xl font-bold bg-orange-500 text-white text-xs uppercase";
+                bVend.className = "flex-1 py-3 rounded-xl font-bold text-gray-400 text-xs uppercase";
+                document.getElementById('customer-only-fields').classList.remove('hidden');
+                document.getElementById('vendor-only-fields').classList.add('hidden');
+            }
+        }
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('profile-preview').src = e.target.result;
+                    document.getElementById('profile-preview').classList.remove('hidden');
+                    document.getElementById('upload-icon').classList.add('hidden');
+                    profileImageBase64 = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function processRegistration() {
+            if(currentUserRole === 'customer') {
+                currentUser = { role: 'customer', name: document.getElementById('c-name').value, email: document.getElementById('c-email').value, pass: document.getElementById('c-pass').value, address: document.getElementById('c-address').value, img: profileImageBase64 };
+            } else {
+                currentUser = { role: 'vendor', kitchen: document.getElementById('v-bizname').value, email: document.getElementById('v-email').value, pass: document.getElementById('v-pass') ? '' : '123', img: profileImageBase64 };
+            }
+            alert("Success! Please Sign In.");
+            toggleAuth();
+        }
+
+        function processLogin() {
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            if(currentUser && email === currentUser.email) {
+                if(currentUser.role === 'vendor') {
+                    document.getElementById('display-kitchen-name').innerText = currentUser.kitchen;
+                    document.getElementById('vendor-nav-link').classList.remove('hidden');
+                    showPage('vendor-dashboard');
+                } else showPage('menu');
+            } else alert("Check your credentials!");
+        }
+
+        function addToCart(name, price) {
+            cartItems.push({name, price});
+            total += price;
+            document.getElementById('cart-count').innerText = cartItems.length;
+            document.getElementById('cart-total').innerText = total.toLocaleString();
+            document.getElementById('cart-list').innerHTML = cartItems.map(i => `<div class='glass-card p-4 flex justify-between'><span>${i.name}</span><span class='text-orange-500'>₦${i.price.toLocaleString()}</span></div>`).join('');
+        }
+
+        function renderMenu() {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = items.map(item => `
+                <div class="glass-card p-4 hover:border-orange-500/50 transition duration-500 group">
+                    <div class="aspect-square overflow-hidden rounded-[1.5rem] mb-6 bg-white/5">
+                        <img src="${item.src}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <h3 class="font-bold truncate">${item.name}</h3>
+                    <p class="text-orange-500 font-black mt-1">₦${item.price.toLocaleString()}</p>
+                    <button onclick="addToCart('${item.name}', ${item.price})" class="mt-4 w-full bg-white text-black py-3 rounded-xl font-bold hover:bg-orange-500 hover:text-white transition uppercase text-xs">Add To Cart</button>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('vendor-form-new').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const dish = { name: document.getElementById('v-new-name').value, price: parseInt(document.getElementById('v-new-price').value), src: document.getElementById('v-new-img').value };
+            items.unshift(dish);
+            renderMenu();
+            showPage('menu');
+        });
+
+        renderMenu();
+    </script>
+</body>
+</html>
